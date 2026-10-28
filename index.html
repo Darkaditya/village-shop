@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="hi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gaon Ki Dukaan</title>
+<style>
+:root{--bg:#faf6ee;--card:#fff;--tx:#241f18;--mut:#7a705f;--pri:#2f7d32;--onp:#fff;--pri2:#e6f2e3;--acc:#e8a317;--bd:#e7dfcf;--dan:#c0392b;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16150f;--card:#211f17;--tx:#f1ecdf;--mut:#a59d8a;--pri:#6cc070;--onp:#0f1d0f;--pri2:#23321f;--acc:#f0b840;--bd:#352f21;--dan:#ef7b6d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#16150f;--card:#211f17;--tx:#f1ecdf;--mut:#a59d8a;--pri:#6cc070;--onp:#0f1d0f;--pri2:#23321f;--acc:#f0b840;--bd:#352f21;--dan:#ef7b6d;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:150px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--pri);z-index:30}
+#app{max-width:980px;margin:0 auto}
+header{background:var(--pri);color:var(--onp);padding:14px 16px 16px;border-radius:0 0 22px 22px}
+header h1{margin:0;font-size:21px}header p{margin:2px 0 0;opacity:.9;font-size:13px}
+.ann{margin-top:10px;background:rgba(255,255,255,.18);padding:8px 12px;border-radius:12px;font-size:13px}
+.pad{padding:14px 14px 0}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pri);border-color:transparent}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px}
+.chip{white-space:nowrap;padding:7px 14px;border-radius:99px;border:1.5px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;font:inherit;font-size:14px}
+.chip.on{background:var(--pri);color:var(--onp);border-color:var(--pri)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:8px 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.ph{aspect-ratio:4/3;background:var(--pri2);display:flex;align-items:center;justify-content:center;font-size:42px;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.cb{padding:10px;display:flex;flex-direction:column;gap:3px;flex:1}
+.cb b{font-size:15px}.cb small{color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pr{font-weight:700;color:var(--pri);margin-top:auto;padding-top:4px}.pr span{font-weight:400;color:var(--mut);font-size:12px}
+.btn{border:0;border-radius:12px;padding:10px 14px;background:var(--pri);color:var(--onp);font:inherit;font-weight:600;cursor:pointer}
+.btn.sm{padding:7px 12px;font-size:14px}.btn.o{background:transparent;color:var(--pri);border:1.5px solid var(--pri)}.btn.d{background:var(--dan);color:#fff}.btn.w{width:100%}.btn[disabled]{opacity:.5}
+.step{display:flex;align-items:center;justify-content:space-between;background:var(--pri2);border-radius:12px;padding:3px}
+.step button{width:34px;height:34px;border:0;border-radius:10px;background:var(--pri);color:var(--onp);font-size:18px;cursor:pointer}
+.step span{font-weight:600;font-size:14px}
+.out{color:var(--dan);font-weight:600;font-size:13px;padding:8px 0}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:20}
+nav button{flex:1;border:0;background:none;color:var(--mut);font:inherit;font-size:12px;padding:6px;cursor:pointer}
+nav button.on{color:var(--pri);font-weight:700}nav i{display:block;font-style:normal;font-size:20px}
+.cartbar{position:fixed;left:12px;right:12px;bottom:calc(66px + env(safe-area-inset-bottom,0px));max-width:600px;margin:0 auto;background:var(--pri);color:var(--onp);border-radius:16px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;z-index:19;box-shadow:0 6px 18px rgba(0,0,0,.25);font-weight:600}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin:10px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--pri2);color:var(--pri)}
+.tag.r{background:#fbe3df;color:#a3281b}.tag.y{background:#fdf0cc;color:#8a6200}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center;z-index:40}
+#modal.on{display:flex}.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom,0px))}
+.sheet h2{margin:0 0 6px;font-size:19px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stats div{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px;text-align:center}.stats b{display:block;font-size:19px;color:var(--pri)}.stats small{color:var(--mut)}
+.tabs{display:flex;gap:6px;margin:12px 0 4px}.tabs .chip{flex:1;text-align:center}
+.muted{color:var(--mut);font-size:13px}.empty{text-align:center;color:var(--mut);padding:36px 10px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:130px;background:#222;color:#fff;padding:9px 16px;border-radius:99px;display:none;z-index:60;font-size:14px}
+.thumb{width:48px;height:48px;border-radius:10px;object-fit:cover;background:var(--pri2)}
+</style></head><body>
+<div id="app"></div><div id="modal"></div><div id="toast"></div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getFirestore,collection,doc,setDoc,deleteDoc,onSnapshot} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getAuth,onAuthStateChanged,signInAnonymously,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const firebaseConfig={apiKey:"AIzaSyCqYSNh5_vx0MKoGYK6VXffmCMFh3hvjYc",authDomain:"gaon-ki-dukan-40d5d.firebaseapp.com",projectId:"gaon-ki-dukan-40d5d",storageBucket:"gaon-ki-dukan-40d5d.firebasestorage.app",messagingSenderId:"446726417122",appId:"1:446726417122:web:2c9cfcc43c3d9918814cbb",measurementId:"G-G2W70D5BS8"};
+const fbApp=initializeApp(firebaseConfig),fs=getFirestore(fbApp),au=getAuth(fbApp);
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rs=n=>'₹'+(Math.round(n*100)/100).toLocaleString('en-IN');
+const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const STAT=['Naya','Confirm','Delivery pe','Ho gaya','Cancel'];
+const CATS=['Sabzi','Phal','Anaj','Dal','Masala','Dairy','Kirana','Snacks'];
+const UNITS=['kg','piece','litre','dozen','packet'];
+let ADMIN=false,UID='local',DEMO=false;
+let P=[],O=[],S={},SET={},MY=[],cart=ls.get('cart',{}),cust=ls.get('cust',{});
+let view='shop',cat='Sab',q='',otab='orders',img='',unsubs=[];
+const store={
+ sub(p,cb){unsubs.push(onSnapshot(collection(fs,p),sn=>cb(sn.docs.map(d=>Object.assign({id:d.id},d.data()))),e=>console.error(p,e)))},
+ put(p,id,data){return setDoc(doc(fs,p,id),data)},
+ del(p,id){return deleteDoc(doc(fs,p,id))}
+};
+const step=u=>(u==='kg'||u==='litre')?0.5:1;
+const prod=id=>P.find(p=>p.id===id);
+const cartItems=()=>Object.keys(cart).map(id=>({p:prod(id),qty:cart[id]})).filter(x=>x.p&&x.qty>0);
+const subtotal=()=>cartItems().reduce((a,x)=>a+x.p.price*x.qty,0);
+const delCh=(sub,mode)=>mode==='pickup'?0:(sub>=(+SET.freeAbove||1e12)?0:(+SET.delCharge||0));
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2200)}
+function modal(h){const m=$('#modal');m.innerHTML=h?'<div class="sheet">'+h+'</div>':'';m.classList.toggle('on',!!h)}
+function statusOf(id){return S[id]||{status:'Naya',paid:false}}
+function tagCls(s){return s==='Cancel'?'tag r':(s==='Naya'?'tag y':'tag')}
+
+function render(){
+ const nNew=O.filter(o=>statusOf(o.id).status==='Naya').length;
+ let h=`<header><h1>🌾 ${esc(SET.name||'Gaon Ki Dukaan')}</h1><p>${SET.phone?'📞 '+esc(SET.phone)+' · ':''}Ghar baithe saman mangao · <a href="#" data-a="${ADMIN?'logout':'login'}" style="color:inherit">${ADMIN?'Logout':'Owner login'}</a></p>${SET.ann?`<div class="ann">📢 ${esc(SET.ann)}</div>`:''}</header>`;
+ if(DEMO)h+=`<div class="pad"><div class="box muted">Demo mode: data sirf is device me save hai. Sabke liye shared dukaan chahiye to page share karke sign-in wale log use karein.</div></div>`;
+ h+=view==='shop'?shopV():view==='my'?myV():ownerV();
+ const n=cartItems().length;
+ if(view==='shop'&&n)h+=`<div class="cartbar" data-a="cart"><span>🛒 ${n} item · ${rs(subtotal())}</span><span>Cart dekho ›</span></div>`;
+ h+=`<nav><button class="${view==='shop'?'on':''}" data-a="v" data-v="shop"><i>🏪</i>Dukaan</button><button class="${view==='my'?'on':''}" data-a="v" data-v="my"><i>📦</i>Mere Orders</button>${ADMIN?`<button class="${view==='own'?'on':''}" data-a="v" data-v="own"><i>🔑</i>Owner${nNew?' ('+nNew+')':''}</button>`:''}</nav>`;
+ $('#app').innerHTML=h;if(view==='shop')grid();
+}
+function cats(){return ['Sab',...new Set(P.map(p=>p.cat).filter(Boolean))]}
+function shopV(){
+ return `<div class="pad"><input id="q" placeholder="🔍 Saman khojo..." value="${esc(q)}"><div class="chips">${cats().map(c=>`<button class="chip ${c===cat?'on':''}" data-a="cat" data-c="${esc(c)}">${esc(c)}</button>`).join('')}</div><div class="grid" id="grid"></div></div>`}
+function grid(){
+ const l=P.filter(p=>(cat==='Sab'||p.cat===cat)&&(!q||(p.name+' '+(p.desc||'')).toLowerCase().includes(q.toLowerCase())));
+ $('#grid').innerHTML=l.length?l.map(card).join(''):`<div class="empty" style="grid-column:1/-1">${P.length?'Kuch nahi mila':'Abhi dukaan me saman nahi hai'}</div>`;
+}
+function card(p){
+ const c=cart[p.id]||0,ok=p.stock>0;
+ return `<div class="card"><div class="ph">${p.img?`<img src="${p.img}" alt="">`:'🛒'}</div><div class="cb"><b>${esc(p.name)}</b><small>${esc(p.desc||'')}</small><div class="pr">${rs(p.price)} <span>/ ${esc(p.unit)}</span></div>
+ ${!ok?'<div class="out">Khatam ho gaya</div>':c?`<div class="step"><button data-a="dec" data-id="${p.id}">−</button><span>${c} ${esc(p.unit)}</span><button data-a="inc" data-id="${p.id}">+</button></div>`:`<button class="btn sm" data-a="inc" data-id="${p.id}">+ Cart me daalo</button>`}</div></div>`}
+function myV(){
+ const l=MY.slice().sort((a,b)=>b.ts-a.ts);
+ return `<div class="pad"><h2 style="margin:6px 0">Mere purane orders</h2>${l.length?l.map(o=>ocard(o,false)).join(''):'<div class="empty">Abhi koi order nahi hai</div>'}</div>`}
+function ocard(o,own){
+ const s=statusOf(o.id);
+ return `<div class="box"><div class="row"><b>#${esc(o.id)}</b><span class="${tagCls(s.status)}">${esc(s.status)}</span></div>
+ <div class="muted">${new Date(o.ts).toLocaleString('en-IN')} · ${o.mode==='pickup'?'Dukaan se lena':'Home delivery'} · ${o.pay==='upi'?'UPI':'Cash'} ${s.paid?'· ✅ Paid':'· Baaki'}</div>
+ ${own?`<div style="margin-top:6px"><b>${esc(o.name)}</b> · <a href="tel:${esc(o.mobile)}">${esc(o.mobile)}</a> · <a target="_blank" href="https://wa.me/91${esc(o.mobile)}">WhatsApp</a>${o.addr?`<div class="muted">📍 ${esc(o.addr)}</div>`:''}</div>`:''}
+ <div style="margin:6px 0">${o.items.map(i=>`${esc(i.name)} × ${i.qty} ${esc(i.unit)}`).join('<br>')}</div>${o.note?`<div class="muted">Note: ${esc(o.note)}</div>`:''}
+ <div class="row"><span class="muted">Delivery ${rs(o.del)}</span><b>Total ${rs(o.total)}</b></div>
+ ${own?`<div class="row" style="margin-top:8px"><select data-ch="st" data-id="${o.id}" style="flex:1">${STAT.map(x=>`<option ${x===s.status?'selected':''}>${x}</option>`).join('')}</select><label style="margin:0;display:flex;gap:6px;align-items:center"><input type="checkbox" style="width:auto" data-ch="paid" data-id="${o.id}" ${s.paid?'checked':''}>Paid</label></div>`:''}</div>`}
+function ownerV(){
+ const today=new Date().toDateString(),td=O.filter(o=>new Date(o.ts).toDateString()===today&&statusOf(o.id).status!=='Cancel');
+ let h=`<div class="pad"><div class="stats"><div><b>${O.filter(o=>statusOf(o.id).status==='Naya').length}</b><small>Naye orders</small></div><div><b>${td.length}</b><small>Aaj ke orders</small></div><div><b>${rs(td.reduce((a,o)=>a+o.total,0))}</b><small>Aaj ki bikri</small></div></div>
+ <div class="tabs">${[['orders','Orders'],['prods','Saman'],['set','Settings']].map(t=>`<button class="chip ${otab===t[0]?'on':''}" data-a="ot" data-t="${t[0]}">${t[1]}</button>`).join('')}</div>`;
+ if(otab==='orders')h+=O.length?O.slice().sort((a,b)=>b.ts-a.ts).map(o=>ocard(o,true)).join(''):'<div class="empty">Abhi koi order nahi aaya</div>';
+ else if(otab==='prods')h+=`<button class="btn w" data-a="pf" data-id="">+ Naya saman jodo</button>`+(P.length?P.map(p=>`<div class="box row"><div class="row" style="gap:10px;justify-content:flex-start">${p.img?`<img class="thumb" src="${p.img}" alt="">`:'<div class="thumb" style="display:flex;align-items:center;justify-content:center">🛒</div>'}<div><b>${esc(p.name)}</b><div class="muted">${esc(p.cat||'')} · ${rs(p.price)}/${esc(p.unit)} · Stock: ${p.stock}</div></div></div><button class="btn o sm" data-a="pf" data-id="${p.id}">Edit</button></div>`).join(''):'<div class="empty">Pehla saman jodo</div>');
+ else h+=setV();
+ return h+'</div>'}
+function setV(){
+ const f=(k,l,t)=>`<label>${l}</label><input id="s_${k}" type="${t||'text'}" value="${esc(SET[k]||'')}">`;
+ return `<div class="box"><h3 style="margin:0">Dukaan ki settings</h3>${f('name','Dukaan ka naam')}${f('phone','Dukaan ka mobile','tel')}${f('upi','UPI ID (jaise naam@upi)')}${f('delCharge','Delivery charge (₹)','number')}${f('freeAbove','Is amount se upar delivery free (₹)','number')}${f('minOrder','Minimum order (₹)','number')}${f('ann','Announcement (jaise: Kal dukaan band rahegi)')}<button class="btn w" style="margin-top:12px" data-a="saveset">Save karo</button></div>`}
+
+function pform(id){
+ const p=prod(id)||{};img=p.img||'';
+ modal(`<h2>${id?'Saman edit karo':'Naya saman'}</h2><label>Naam</label><input id="f_name" value="${esc(p.name||'')}">
+ <label>Category</label><input id="f_cat" list="cl" value="${esc(p.cat||'')}"><datalist id="cl">${[...new Set([...CATS,...P.map(x=>x.cat)])].map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+ <div class="row" style="gap:8px"><div style="flex:1"><label>Rate (₹)</label><input id="f_price" type="number" min="0" step="any" value="${p.price??''}"></div><div style="flex:1"><label>Naap</label><select id="f_unit">${UNITS.map(u=>`<option ${u===(p.unit||'kg')?'selected':''}>${u}</option>`).join('')}</select></div></div>
+ <label>Stock (kitna maal hai)</label><input id="f_stock" type="number" min="0" step="any" value="${p.stock??''}">
+ <label>Description</label><textarea id="f_desc" rows="3">${esc(p.desc||'')}</textarea>
+ <label>Photo</label><input id="f_img" type="file" accept="image/*"><div id="prev" style="margin-top:8px">${img?`<img class="thumb" style="width:80px;height:80px" src="${img}" alt="">`:''}</div>
+ <div class="row" style="margin-top:14px;gap:8px"><button class="btn w" data-a="psave" data-id="${id}">Save</button>${id?`<button class="btn d" data-a="pdel" data-id="${id}">Delete</button>`:''}<button class="btn o" data-a="close">Band</button></div>`)}
+function cartV(){
+ const it=cartItems();if(!it.length){modal('<h2>Cart</h2><div class="empty">Cart khali hai</div><button class="btn o w" data-a="close">Band karo</button>');return}
+ modal(`<h2>🛒 Aapka cart</h2>${it.map(x=>`<div class="box row"><div><b>${esc(x.p.name)}</b><div class="muted">${rs(x.p.price)}/${esc(x.p.unit)} · ${rs(x.p.price*x.qty)}</div></div><div class="step" style="min-width:120px"><button data-a="dec" data-id="${x.p.id}" data-cv="1">−</button><span>${x.qty} ${esc(x.p.unit)}</span><button data-a="inc" data-id="${x.p.id}" data-cv="1">+</button></div></div>`).join('')}
+ <div class="row"><b>Subtotal</b><b>${rs(subtotal())}</b></div><div style="display:flex;gap:8px;margin-top:12px"><button class="btn w" data-a="checkout">Order karo ›</button><button class="btn o" data-a="close">Band</button></div>`)}
+function checkout(){
+ const sub=subtotal();
+ if(SET.minOrder&&sub<+SET.minOrder){toast('Minimum order '+rs(+SET.minOrder)+' ka hai');return}
+ modal(`<h2>Order details</h2><label>Aapka naam</label><input id="c_name" value="${esc(cust.name||'')}"><label>Mobile number</label><input id="c_mob" type="tel" inputmode="numeric" maxlength="10" value="${esc(cust.mobile||'')}">
+ <label>Kaise lenge?</label><select id="c_mode"><option value="delivery">Home delivery</option><option value="pickup">Dukaan se khud lunga</option></select>
+ <div id="c_ad"><label>Pura pata</label><textarea id="c_addr" rows="2">${esc(cust.addr||'')}</textarea></div>
+ <label>Payment</label><select id="c_pay"><option value="cod">Cash (saman milne par)</option>${SET.upi?'<option value="upi">UPI (PhonePe / GPay / Paytm)</option>':''}</select>
+ <label>Note (optional)</label><input id="c_note" placeholder="jaise: subah 10 baje tak">
+ <div class="box" id="c_sum"></div><div style="display:flex;gap:8px"><button class="btn w" data-a="place">Order pakka karo</button><button class="btn o" data-a="close">Wapas</button></div>`);sum()}
+function sum(){
+ const sub=subtotal(),m=$('#c_mode').value,d=delCh(sub,m);$('#c_ad').style.display=m==='pickup'?'none':'block';
+ $('#c_sum').innerHTML=`<div class="row"><span>Subtotal</span><span>${rs(sub)}</span></div><div class="row"><span>Delivery</span><span>${d?rs(d):'Free'}</span></div><div class="row"><b>Total</b><b>${rs(sub+d)}</b></div>`}
+async function place(){
+ const name=$('#c_name').value.trim(),mobile=$('#c_mob').value.trim(),mode=$('#c_mode').value,addr=$('#c_addr').value.trim(),pay=$('#c_pay').value,note=$('#c_note').value.trim();
+ if(name.length<2)return toast('Naam likho');if(!/^[6-9]\d{9}$/.test(mobile))return toast('Sahi 10 digit mobile number likho');if(mode==='delivery'&&addr.length<5)return toast('Pata likho');
+ const it=cartItems(),sub=subtotal(),del=delCh(sub,mode);
+ const o={name,mobile,addr:mode==='delivery'?addr:'',mode,pay,note,items:it.map(x=>({id:x.p.id,name:x.p.name,unit:x.p.unit,price:x.p.price,qty:x.qty})),sub,del,total:sub+del,ts:Date.now()};
+ const id='O'+Date.now().toString(36).toUpperCase();
+ try{await store.put(myPath(),id,o);await store.put('orders',id,o)}catch(e){toast('Order nahi gaya, dobara koshish karo');return}
+ cust={name,mobile,addr};ls.set('cust',cust);cart={};ls.set('cart',cart);
+ const up=pay==='upi'&&SET.upi?`<a class="btn w" style="display:block;text-align:center;text-decoration:none;margin-bottom:8px" href="upi://pay?pa=${encodeURIComponent(SET.upi)}&pn=${encodeURIComponent(SET.name||'Dukaan')}&am=${o.total}&cu=INR&tn=${id}">UPI se ${rs(o.total)} pay karo</a><div class="muted">Pay karne ke baad dukaan wale paid mark kar denge.</div>`:'';
+ modal(`<h2>✅ Order ho gaya!</h2><p>Order number <b>#${id}</b>. Total <b>${rs(o.total)}</b>.</p>${up}<button class="btn o w" style="margin-top:10px" data-a="myo">Mere orders dekho</button>`);render()}
+const myPath=()=>'users/'+UID+'/orders';
+function setQty(id,d){const p=prod(id);if(!p)return;let v=(cart[id]||0)+d*step(p.unit);v=Math.max(0,Math.min(v,p.stock));if(v<(cart[id]||0)||v>(cart[id]||0)){}else if(d>0)toast('Itna hi stock hai');if(v)cart[id]=v;else delete cart[id];ls.set('cart',cart)}
+const A={
+ v(d){view=d.v;render();scrollTo(0,0)},cat(d){cat=d.c;render()},ot(d){otab=d.t;render()},close(){modal('')},cart:cartV,checkout,place,
+ inc(d,t){setQty(d.id,1);t.dataset.cv?cartV():0;render()},dec(d,t){setQty(d.id,-1);t.dataset.cv?cartV():0;render()},
+ myo(){modal('');view='my';render()},pf(d){pform(d.id)},
+ async psave(d){const g=k=>$('#f_'+k).value.trim(),name=g('name'),price=parseFloat(g('price')),stock=parseFloat(g('stock'));
+  if(!name||isNaN(price)||price<0)return toast('Naam aur rate sahi bharo');
+  const id=d.id||'P'+Date.now().toString(36);
+  try{await store.put('products',id,{name,cat:g('cat'),price,unit:$('#f_unit').value,stock:isNaN(stock)?0:stock,desc:g('desc'),img})}catch(e){return toast('Save nahi hua (photo chhoti rakho)')}
+  modal('');toast('Save ho gaya')},
+ async pdel(d){if(confirm('Ye saman delete karein?')){await store.del('products',d.id);modal('')}},
+ async saveset(){const o={};['name','phone','upi','delCharge','freeAbove','minOrder','ann'].forEach(k=>o[k]=$('#s_'+k).value.trim());await store.put('settings','shop',o);toast('Settings save ho gayi')}
+};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t&&A[t.dataset.a]){A[t.dataset.a](t.dataset,t);return}if(e.target.id==='modal')modal('')});
+document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value;grid()}});
+document.addEventListener('change',async e=>{const t=e.target;
+ if(t.id==='c_mode')sum();
+ if(t.id==='f_img'&&t.files[0]){const im=new Image();im.onload=()=>{const s=Math.min(1,420/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);img=c.toDataURL('image/jpeg',.65);$('#prev').innerHTML=`<img class="thumb" style="width:80px;height:80px" src="${img}" alt="">`};im.src=URL.createObjectURL(t.files[0])}
+ if(t.dataset.ch){const s=Object.assign({},statusOf(t.dataset.id));if(t.dataset.ch==='st')s.status=t.value;else s.paid=t.checked;await store.put('status',t.dataset.id,s)}});
+function start(){
+ store.sub('products',l=>{P=l.sort((a,b)=>(a.cat||'').localeCompare(b.cat||'')||a.name.localeCompare(b.name));render()});
+ store.sub('settings',l=>{SET=l.find(x=>x.id==='shop')||{};render()});
+ store.sub('status',l=>{S={};l.forEach(x=>S[x.id]=x);render()});
+ store.sub(myPath(),l=>{MY=l;render()});
+ if(ADMIN)store.sub('orders',l=>{O=l;render()});
+ render();
+}
+A.login=async()=>{const e=prompt('Owner email'),p=e&&prompt('Password');if(!p)return;try{await signInWithEmailAndPassword(au,e,p);toast('Login ho gaya')}catch(x){toast('Email ya password galat hai')}};
+A.logout=()=>signOut(au);
+onAuthStateChanged(au,u=>{unsubs.forEach(f=>f());unsubs=[];if(!u){signInAnonymously(au).catch(e=>toast('Anonymous sign-in on karo'));return}
+ UID=u.uid;ADMIN=!u.isAnonymous;view=ADMIN?view:(view==='own'?'shop':view);O=[];start()});
+</script></body></html>
