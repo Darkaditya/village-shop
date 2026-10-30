@@ -169,7 +169,7 @@ const A={
  async psave(d){const g=k=>$('#f_'+k).value.trim(),name=g('name'),price=parseFloat(g('price')),stock=parseFloat(g('stock'));
   if(!name||isNaN(price)||price<0)return toast('Naam aur rate sahi bharo');
   const id=d.id||'P'+Date.now().toString(36);
-  try{await store.put('products',id,{name,cat:g('cat'),price,unit:$('#f_unit').value,stock:isNaN(stock)?0:stock,desc:g('desc'),img})}catch(e){return toast('Save nahi hua (photo chhoti rakho)')}
+  try{await store.put('products',id,{name,cat:g('cat'),price,unit:$('#f_unit').value,stock:isNaN(stock)?0:stock,desc:g('desc'),img})}catch(e){console.error(e);return toast('Save nahi hua: '+(e.code||e.message))}
   modal('');toast('Save ho gaya')},
  async pdel(d){if(confirm('Ye saman delete karein?')){await store.del('products',d.id);modal('')}},
  async saveset(){const o={};['name','phone','upi','delCharge','freeAbove','minOrder','ann'].forEach(k=>o[k]=$('#s_'+k).value.trim());await store.put('settings','shop',o);toast('Settings save ho gayi')}
